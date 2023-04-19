@@ -1,0 +1,107 @@
+<html>
+<head>
+<style>
+    #app{
+        background-color: rgb(228, 233, 249);
+        width: 20%;
+    }
+</style>
+</head>
+<body>
+<div id="app">
+    <el-form ref="ruleForm" :model="ruleForm" :rules="rules" label-width="100px" label-position="top">
+        <el-form-item label="距离我国最近的国家是？"  prop="nation">
+          <el-radio-group v-model="ruleForm.nation">
+            <el-radio label="美国" value="美国"></el-radio><br>
+            <el-radio label="英国"></el-radio><br>
+            <el-radio label="法国"></el-radio><br>
+            <el-radio label="日本"></el-radio><br>
+          </el-radio-group>
+        </el-form-item>
+          <el-form-item label="美国的首都是？"  prop="capital">
+            <el-radio-group v-model="ruleForm.capital">
+              <el-radio label="东京"></el-radio><br>
+              <el-radio label="伦敦"></el-radio><br>
+              <el-radio label="华盛顿"></el-radio><br>
+              <el-radio label="旧金山"></el-radio><br>
+            </el-radio-group>
+        </el-form-item>
+            <el-form-item label="以下属于亚洲的国家是？"  prop="asia">
+                <el-checkbox-group v-model="ruleForm.asia">
+                  <el-checkbox label="中国" name="asia"></el-checkbox><br>
+                  <el-checkbox label="美国" name="asia"></el-checkbox><br>
+                  <el-checkbox label="俄罗斯" name="asia"></el-checkbox><br>
+                  <el-checkbox label="日本" name="asia"></el-checkbox><br>
+                  <el-checkbox label="韩国" name="asia"></el-checkbox><br>
+                </el-checkbox-group>
+        </el-form-item>
+        <el-form-item label="中国属于什么气候？" prop="climate">
+            <el-input v-model="ruleForm.climate"></el-input>
+          </el-form-item>
+         <el-form-item>
+           
+            <el-button type="submit" method="post"  @click="submitForm('ruleForm')">提交</el-button>
+            <el-button @click="resetForm('ruleForm')">重置</el-button>
+        </el-form-item>
+      </el-form>
+</div>
+<script src="../element-ui/vue.js"></script>
+<script src="../element-ui/lib/index.js"></script>
+<script src="../element-ui/axios-0.18.0.js"></script>
+<link rel="stylesheet" href="../element-ui/lib/theme-chalk/index.css">
+<script>
+    new Vue({
+      el:"#app",
+      data() {
+        return {
+          ruleForm: {
+              nation: '',
+              capital: '',
+              asia: [],
+              climate: ''
+            },
+          rules: {
+                  nation: [
+                  { required: true, message: '请选择答案', trigger: 'change' }
+              ],
+              capital: [
+                  { required: true, message: '请选择答案', trigger: 'change' }
+              ],
+              asia: [
+                  { type: 'array', required: true, message: '请至少选择一个国家', trigger: 'change' }
+              ],
+                  climate: [
+                  { required: true, message: '请输入内容', trigger: 'blur' },
+            ]
+          }
+        };
+      },
+      methods: {
+        submitForm(formName) {
+          this.$refs[formName].validate((valid) => {
+            if (valid) {
+              var _this = this;
+               axios({
+                   method:"post",
+                   url:"http://localhost:8081/JSPDemo/aAddServlet",
+                   data:_this.ruleForm
+               }).then(function (resp) {
+                   // 判断响应数据是否为 success
+                   if(resp.data == "success"){
+                    alert('submit!');
+                   }
+               })
+            }else{
+            console.log('error submit!!');
+            return false;
+            }
+          });
+        },
+        resetForm(formName) {
+          this.$refs[formName].resetFields();
+        }
+      }
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<HTML>
+
+    <HEAD>
+    
+    <SCRIPT id="clientEventHandlersJS" language="javascript">
+    
+    function validate()
+    
+    {//验证表单
+    
+        var age, name, occupation;
+    
+        age = parseInt(my_form.my_age.value);
+    
+        name = my_form.my_name.value;
+    
+        occupation = my_form.my_job.value;
+    
+        if(name == "")
+    
+            {
+    
+            window.alert("姓名不能为空");
+    
+            return false;
+    
+            }
+    
+        
+    
+        if(age<16 || age>40)
+    
+        {
+    
+            window.alert("年龄必须在[16,40]之间,请重新输入");
+    
+            my_form.my_age.focus();
+    
+            my_form.my_age.select();
+    
+            return false;  //不提交有错误的表单
+    
+        }
+    
+        if(occupation == "")
+    
+            {
+    
+            window.alert("职业不能为空");
+    
+            return false;
+    
+            }
+    
+        return true;//向服务器提交表单数据
+    
+    }
+    
+    //-->
+    
+    </SCRIPT>
+    
+    </HEAD>
+    
+    <BODY>
+    
+    <FORM name="my_form" onsubmit="return validate()" action="ex080304A.htm">
+    
+      <P>姓名：<INPUT type="text" name="my_name" size="20"></P>
+    
+      <P>年龄：<INPUT type="text" name="my_age" size="4" value="0"></P>
+    
+      <P>职业：<INPUT type="text" name="my_job" size="20"></P>
+    
+      <P><INPUT type="submit" value="提交" name="B1"></P>
+    
+    </FORM>
+    
+    </BODY>
+    
+    </HTML>
+    
+    

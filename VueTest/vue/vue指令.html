@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>cVzhanshi</title>
+</head>
+<body>
+
+<div id="app">
+    <!-- v-bind -->
+        <!-- 缩写 :prop -->
+    <span v-bind:title="mes">
+        鼠标悬停几秒钟查看此处动态绑定的提示信息！
+    </span>
+
+    <!-- v-if -->
+    <h1 v-if="type1">Yes</h1>
+    <h1 v-else>No</h1>
+
+    <!-- v-else if -->
+    <h1 v-if="type2==='A'">A</h1>
+    <h1 v-else-if="type2==='B'">B</h1>
+    <h1 v-else-if="type2==='D'">D</h1>
+    <h1 v-else>C</h1>
+
+    <!-- v-for -->
+    <!-- items是数组，item是数组元素迭代的别名，index是迭代的序号 -->
+    <li v-for="(item) in items">
+        {{item.message}}
+    </li>
+    <li v-for="(item,index) in items">
+        {{item.message}}---{{index}}
+    </li>
+
+    <!-- v-on 绑定事件，并在触发时运行一些 JavaScript 代码 -->
+    <!-- 缩写 @click -->
+    <button v-on:click="sayHi">click Me</button>
+    <button v-on:click="counter += 1">Add 1</button>
+    <p>The button above has been clicked {{ counter }} times.</p>
+</div>
+    <!--1.导入Vue.js-->
+    <script src="../element-ui/vue.js"></script>
+    <script src="../element-ui/lib/index.js"></script>
+    <script src="../element-ui/axios-0.18.0.js"></script>
+    <link rel="stylesheet" href="../element-ui/lib/theme-chalk/index.css">
+    <script>
+        // 创建一个Vue实例
+        var vm = new Vue({
+            el:"#app",
+            /*Model：数据*/
+            data:{
+                mes:"hello,vue  -----lulu!",
+                // type1为true显示yes，false显示no
+                type1: true,
+                type2: 'A',
+                // 增加数据：控制台输入vm.items.push({message：'vue hello'})
+                items:[
+                {message:'lulu[0]'},
+                {message:'lulu[1]'},
+                {message:'lulu[2]'}
+                ],
+                counter: 0
+            },
+            // 方法必须定义在methods中
+            methods:{
+                sayHi:function(){alert(this.message);}
+            }
+        });
+    </script>
+</body>
+</html>

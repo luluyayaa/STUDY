@@ -1,0 +1,47 @@
+!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!-- view层模板 -->
+<div id="app">
+    <div>地名：{{info.name}}</div>
+    <div>地址：{{info.address.country}}--{{info.address.city}}--{{info.address.street}}</div>
+    <div>链接：<a v-bind:href="info.url">{{info.url}}</a> </div>
+</div>
+<script src="../element-ui/vue.js"></script>
+<script src="../element-ui/lib/index.js"></script>
+<script src="../element-ui/axios-0.18.0.js"></script>
+<link rel="stylesheet" href="../element-ui/lib/theme-chalk/index.css">
+<script>
+    new Vue({
+        // 绑定标签
+        el: '#app',
+        //model数据
+        data:{},
+        //data属性
+        data() {
+            //返回参数格式必须与json格式相同
+            return{
+                info:{
+                    name:null,
+                    address:{
+                        country:null,
+                        city:null,
+                        street:null
+                    },
+                    url:null
+                }
+            }
+        },
+        mounted(){//钩子函数
+            axios
+                .get('data1.json')
+                .then(response=>(this.info=response.data));
+        }
+    })
+</script>
+</body>
+</html>

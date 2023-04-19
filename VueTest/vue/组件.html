@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!-- view层模板 -->
+<div id="app">
+    <lulu1></lulu1>
+    <lulu2 v-for="item in items" v-bind:course="item"></lulu2>
+</div>
+<script src="../element-ui/vue.js"></script>
+<script src="../element-ui/lib/index.js"></script>
+<script src="../element-ui/axios-0.18.0.js"></script>
+<link rel="stylesheet" href="../element-ui/lib/theme-chalk/index.css">
+<script>
+      Vue.component("lulu1",{
+       template: '<li>Hello  lulu1</li><br>'
+    });
+    Vue.component("lulu2",{
+        props: ['course'],
+       template: '<li>{{course}}</li>'
+    });
+    var vm = new Vue({
+        // 绑定标签
+        el: '#app',
+        // model数据
+        data: {
+            items:["java","Linux","前端"]
+        }
+    })
+</script>
+</body>
+</html>

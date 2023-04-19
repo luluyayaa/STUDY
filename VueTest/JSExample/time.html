@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>无标题文档</title>
+
+<script language="javascript">
+
+	function welcome(){
+
+		// 为时间变量赋值
+
+		var nowdate = new Date()
+
+		// 将time赋值为清晨的时间段
+
+		 var time =nowdate.getHours();
+
+
+
+		// 将time赋值为工作时间
+
+		//var time = 10;
+
+
+
+		// 根据time的不同取值，弹出提示窗口
+
+		if(time>=9 && time<=17){
+
+			alert("你好，请用饱满的精神开始工作!");
+
+		}else if(time>17 && time<23){
+
+			alert("现在是下班后的自由时间，是继续充电呢还是娱乐一会儿？");
+
+		}else if(time>=23 || time<6){
+
+			alert("辛勤劳作了一天了，该休息了!");
+
+		}else if(time>=6 && time<9){
+
+			alert("一日之计在于晨，清新的早晨来临了，早上好!");
+
+		}
+
+	}
+
+	
+
+	// 页面加载完毕的时候，调用welcome函数
+
+	window.onload = welcome;
+
+</script>
+
+</head>
+
+<body>
+
+</body>
+
+</html>

@@ -1,0 +1,147 @@
+<html>
+<head>
+<style>
+    #app{
+        background-color: rgb(228, 233, 249);
+        width: 20%;
+    }
+</style>
+</head>
+<body>
+<div id="app">
+    <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px">
+        <el-form-item label="用户名" prop="name" >
+            <el-input v-model="ruleForm.name" placeholder="请输入用户名"></el-input>
+          </el-form-item>
+        <el-form-item label="密码" prop="password">
+          <el-input type="password" v-model="ruleForm.password" autocomplete="off"  placeholder="请输入密码"></el-input>
+        </el-form-item>
+        <el-form-item label="确认密码" prop="checkPass">
+          <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off" placeholder="请确认密码"></el-input>
+        </el-form-item>
+        <el-form-item label="手机号码" prop="tel">
+            <el-input v-model="ruleForm.tel" placeholder="请输入您的电话"></el-input>
+          </el-form-item>
+        <el-form-item>
+          <el-button type="submit" method="post" @click="submitForm('ruleForm')">提交</el-button>
+          <el-button @click="resetForm('ruleForm')">重置</el-button>
+        </el-form-item>
+      </el-form>
+</div>
+<script src="../element-ui/vue.js"></script>
+<script src="../element-ui/lib/index.js"></script>
+<script src="../element-ui/axios-0.18.0.js"></script>
+<link rel="stylesheet" href="../element-ui/lib/theme-chalk/index.css">
+<script>
+    new Vue({
+      el:"#app",
+      data() {
+        var validateName= (rule, value, callback) => {
+          const nameReg = /^[D-P|d-p]+/
+          if (value === '') {
+            callback(new Error('请输入用户名'));
+          }
+          setTimeout(() => {
+            if (nameReg.test(value)) {
+              this.$refs.ruleForm.validateField('name');
+              callback();
+            } else {
+              callback(new Error('首位为字母的4-16位字符串'));
+           }            
+          }, 100)
+        };
+        var validatePass = (rule, value, callback) => {
+          const nameReg = /^[F-J|f-j]+/
+          if (value === '') {
+            callback(new Error('请输入密码'));
+          }
+          setTimeout(() => {
+            if (nameReg.test(value)) {
+              this.$refs.ruleForm.validateField('checkPass');
+              callback();
+            } else {
+              callback(new Error('首位为字母的6-10位字符串'));
+           }            
+          }, 100)
+          callback();
+        };
+        var validatePass2 = (rule, value, callback) => {
+          if (value === '') {
+            callback(new Error('请再次输入密码'));
+          } else if (value !== this.ruleForm.password) {
+            callback(new Error('两次输入密码不一致!'));
+          } else {
+            callback();
+          }
+        };
+        var validateTel= (rule, value, callback) => {
+          const telReg = /^1[3|4|5|7|8|9][0-9]{9}$/
+          if (value === '') {
+            callback(new Error('请输入号码'));
+          }  
+          setTimeout(() => {
+        // Number.isInteger是es6验证数字是否为整数的方法,但是我实际用的时候输入的数字总是识别成字符串
+        // 所以我就在前面加了一个+实现隐式转换
+            if (!Number.isInteger(+value)) {
+              callback(new Error('请输入数字值'));
+            } else {
+              if (telReg.test(value)) {
+                this.$refs.ruleForm.validateField('tel');   
+                callback();
+              } else {
+                callback(new Error('电话号码格式/长度不正确'));
+              }
+            }
+          }, 100)
+        };
+        return {
+          ruleForm: {
+            name:'',
+            password: '',
+            tel: ''
+          },
+          rules: {
+            name: [
+              { validator: validateName, trigger: 'blur' }
+            ],
+            pass: [
+              { validator: validatePass, trigger: 'blur' }
+            ],
+            checkPass: [
+              { validator: validatePass2, trigger: 'blur' }
+            ],
+            tel: [
+              { validator: validateTel, trigger: 'blur' }
+            ]
+          }
+        };
+      },
+      methods: {
+        submitForm(formName) {
+          this.$refs[formName].validate((valid) => {
+            if (valid) {
+              var _this = this;
+               axios({
+                   method:"post",
+                   url:"http://localhost:8081/JSPDemo/aAddServlet",
+                   data:_this.ruleForm
+               }).then(function (resp) {
+                   // 判断响应数据是否为 success
+                   if(resp.data == "success"){
+                    alert('submit!');
+                   }
+               })
+            }else{
+            console.log('error submit!!');
+            return false;
+            }
+          });
+        },
+        resetForm(formName) {
+          this.$refs[formName].resetFields();
+        }
+      }
+    })
+  </script>
+</body>
+</html>

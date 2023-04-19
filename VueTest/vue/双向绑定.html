@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!-- view层模板 -->
+<div id="app">
+
+    <!-- 单行文本 -->
+    <input v-model="message" placeholder="edit me">
+    <!-- 多行文本 -->
+    <textarea v-model="message" placeholder="add multiple lines"></textarea>
+    <p>Message is: {{ message }}</p>
+
+    <!-- 单选框 -->
+    <input type="radio" v-model="checked" name="sex" value="男">男
+    <input type="radio" name="sex" value="女">女
+    <br>
+    <!-- 复选框绑定数组 -->
+    <input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
+    <label for="jack">Jack</label>
+    <input type="checkbox" id="john" value="John" v-model="checkedNames">
+    <label for="john">John</label>
+    <input type="checkbox" id="mike" value="Mike" v-model="checkedNames">
+    <label for="mike">Mike</label>
+    <br>
+    <span>Checked names: {{ checkedNames }}</span>
+    <br>
+
+    <!-- 下拉框 -->
+    <select v-model="selected">
+        <option disabled value="">请选择</option> <!-- 预留空项 -->
+        <option>A</option>
+        <option>B</option>
+        <option>C</option>
+    </select>
+    <span>Selected: {{ selected }}</span>
+
+</div>
+<script src="../element-ui/vue.js"></script>
+<script src="../element-ui/lib/index.js"></script>
+<script src="../element-ui/axios-0.18.0.js"></script>
+<link rel="stylesheet" href="../element-ui/lib/theme-chalk/index.css">
+<script>
+    var vm = new Vue({
+        // 绑定标签
+        el: '#app',
+        // model数据
+        data: {
+            message: '',
+            // 切换默认选中状态
+            checked: true,
+            checkedNames: [],
+            selected:''
+        }
+    })
+</script>
+</body>
+</html>
