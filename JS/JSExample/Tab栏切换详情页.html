@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+<style>
+    .item{
+    display:"none";
+    }
+    </style>
+</head>
+<body>
+        <div>
+    //选项卡模块，排他思想选中
+    <div class="tab_list">
+    </div>
+    //详情页模块
+    <div class="tab_con">
+         //默认显示第一个详情页
+      <div class="item" style="display:block;">
+        商品介绍
+      </div>
+      <div class="item">
+        规格包装
+      </div>
+    </div>
+    </div>
+</body>  
+    <script>
+           //排他循环tab
+            var tab_list = document.querySelector('tab_list');
+            var lis = tab_list.querySelectorAll('li');
+            var items = document.querySelectorAll('.item');
+            for (var i = 0; i < btns.length; i++) {
+                //设定索引
+                lis[i].setAttribute("index",i);
+                tab_list[i].onclick = function() {
+                    // (1) 我们先把所有的背景颜色去掉  干掉所有人
+                    for (var i = 0; i < tab_list.length; i++) {
+                        tab_list[i].style.backgroundColor = '';
+                    }
+                    // (2) 然后才让当前的元素背景颜色为pink 留下我自己
+                    this.style.backgroundColor = 'pink';
+                    //显示与tab索引号匹配的详情页。注意排他
+                    for (var i = 0; i < items.length; i++) {
+                      item[i].style.display = 'none';
+                    } 
+                    items[index].style.display = "block";
+                   }
+                }
+    </script>
+</html>

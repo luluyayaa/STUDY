@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        table{
+            background-color: #ffcddb;
+            width: 700px;
+            height: 300px;
+        }
+        th, td{
+            align-content: center;
+            border: 1px black solid;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+<body>
+<table >
+    <tr> <th colspan="2">母亲节调查问卷</th></tr>
+    <tr>  <td >你知道母亲节吗？</td>     <td><input type="radio" name="radio1">知道<span style="margin: 20px"></span><input type="radio"  name="radio1">不知道<span style="margin: 20px"></span><input type="button" value="next"><span style="margin-left: 10px" id="alert"></span></td>  </tr>
+    <tr>  <td>请问母亲节是那一天？</td>     <td><input type="radio" name="radio2">五月第二个星期日 <input type="radio" name="radio2">四月第二个星期日<input type="radio" name="radio2">五月第三个星期日</td>  </tr>
+    <tr>  <td>你会采取哪种爱的表达？</td>     <td><input type="checkbox">手机短信<input type="checkbox">音视频通话<input type="checkbox">鲜花等礼品</td> </tr>
+    <tr>  <td>请问你的年龄？</td>    <td><select><option selected="selected">20岁以下</option><option>25岁以下</option></select></td>         </tr>
+    <tr>  <td colspan="2" ><span style="margin-left: 340px"></span><input type="button" value="提交"></td></tr>
+</table>
+<script>
+    window.onload = function() {
+        var input = document.querySelectorAll('input');
+        var alert = document.querySelector('#alert');
+        for (var i = 3; i < input.length-1; i++) {
+            input[i].addEventListener('click', function (e) {
+                this.disabled = true;
+                alert.innerHTML = "请完成第一问并点击next";
+                if (input[0].checked === true || input[2].checked === true) {
+                    this.disabled = false;
+                    alert.innerHTML = " ";
+                }
+                if (input[1].checked === true || input[2].checked === true) {
+                    input[9].disabled = false;
+                    alert.innerHTML = " ";
+                }
+            })
+            input[9].addEventListener('click',function(e) {
+                window.alert("感谢您的参与！");
+
+            })
+        }
+    }
+
+</script>
+</body>
+</html>

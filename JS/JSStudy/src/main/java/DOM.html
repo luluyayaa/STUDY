@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div>
+        <span class="hour">1</span>
+        <span class="minute">2</span>
+        <span class="second">3</span>
+    </div>
+    <script>
+        var hour = document.querySelector(".hour");
+        var minute = document.querySelector(".minute");
+        var second = document.querySelector(".second");
+        var inputTime = +new Date('2020-5-10 18:00:00'); //用户输入时间
+        //开启定时器
+        setInterval(countDown,1000);
+        function countDown() {
+            let nowTime = +new Date(); //当前时间毫秒数
+            let times = parseInt(inputTime - nowTime)/ 1000; //距离2020-5-10 18:00:00的剩余时间
+            let h = times/ 60 / 60 % 24;
+            h = h < 10 ? '0' + h : h;
+            hour.innerHTML = h;
+            let m = parseInt(times / 60 % 60);
+            m = m < 10 ? '0' + m : m;
+            minute.innerHTML = m;
+            let s = parseInt(times % 60);
+            s = s < 10 ? '0' + s : s;
+            second.innerHTML = s;
+        }
+    </script>
+</body>
+</html>

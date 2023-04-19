@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="css/mainstyle.css" charset="utf-8">
+    <link rel="stylesheet" href="css/iconfont.css">
+    <style>
+
+        @font-face {
+            font-family: 'iconfont';
+            /* Project id 3346226 */
+            src: url('font/iconfont.woff2') format('woff2'), url('font/iconfont.woff') format('woff'), url('font/iconfont.ttf') format('truetype');
+        }
+    </style>
+</head>
+<body>
+
+<table action = "#" method="post"  >
+    <tr><td style="text-align-last: justify">用户名：</td><td><input type="text" id="uname"  placeholder="请输入用户名" > </td><td class="iconfont icon-zhuyi">首位为字母的4-16位字符串<span style="padding-left: 30px;" id="s_rename" class="error"></span></td></tr>
+
+    <tr><td style="text-align-last: justify">密码：</td><td><input type="password" id="input_psd"  placeholder="首位为字母的6-10位字符串"> </td><td class="iconfont icon-zhuyi" >首位为字母的6-10位字符串<span style="padding-left: 30px;" id="s_repsd1" class="error"></span></td></tr>
+    <tr><td style="text-align-last: justify">确认密码：</td><td><input type="password" id="confirm_psd"  placeholder="与密码一致"> </td><td class="iconfont icon-zhuyi" >与密码一致 <span style="padding-left: 30px;" id="s_repsd2" class="error"></span></td></tr>
+    <tr><td style="text-align-last: justify">手机号码：</td><td><input type="tel" id="tel" > </td><td class="iconfont icon-zhuyi">11位数字 <span style="padding-left: 30px;" id="s_retel" class="error"></span></td></tr>
+    <tr><td></td><td><button type="button">确<span style="margin-left: 20px"></span>定</button></td><td></td></tr>
+</table>
+<script>
+
+    window.onload = function () {
+        document.getElementsByTagName("table").onsubmit = function () {
+            return checkUname() && checktPsd1() && checktPsd2() && checkTel();
+        }
+        //注册对象与事件
+        document.getElementById("uname").onblur = checkUname;
+        document.getElementById("input_psd").onblur = checktPsd1;
+        document.getElementById("confirm_psd").onblur = checktPsd2;
+        document.getElementById("tel").onblur = checkTel;
+
+        function checkUname(uname) {
+            <!--定义正则表达式-->
+            var s_rename = /^[D-P|d-p]+/;
+            let flag = s_rename.test(uname);
+            var s_rename = document.getElementById("s_rename");
+            if (flag)
+                s_rename.innerHTML = "输入正确~";
+            else
+                s_rename.innerHTML = "格式有误！";
+            return flag;
+        }
+
+        function checktPsd1(input_psd) {
+            var s_repsd1 = /^[F-J|f-j]+/;
+            let flag = s_repsd1.test(input_psd);
+            var s_repsd1 = document.getElementById("s_repsd1");
+            if (flag)
+                s_rename.innerText = "输入正确~";
+            else
+                s_rename.innerHTML = "格式有误！";
+            return flag;
+        }
+
+
+        function checktPsd2(confirm_psd) {
+            var s_repsd2 = confirm_psd;
+            let flag = s_repsd2.test(confirm_psd);
+            var s_repsd2 = document.getElementById("s_repsd2");
+            if (flag)
+                s_rename.innerText = "输入正确~";
+            else
+                s_rename.innerHTML = "格式有误！";
+            return flag;
+        }
+
+        function checkTel(tel) {
+            var s_retel = /d{11}/;
+            let flag = s_retel.test(tel);
+            var s_retel = document.getElementById("s_retel");
+            if (flag)
+                s_rename.innerText = "输入正确~";
+            else
+                s_rename.innerHTML = "格式有误！";
+            return flag;
+        }
+    }
+
+</script>
+
+</body>
+</html>
+</head>
+</html>
